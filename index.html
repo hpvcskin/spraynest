@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SprayNest - Create Your Token</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+    .card {
+      background: #222;
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 600px;
+      margin: auto;
+    }
+    input, button {
+      padding: 0.6rem;
+      width: 90%;
+      margin: 0.5rem 0;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+    }
+    input {
+      background: #333;
+      color: #fff;
+    }
+    button {
+      background: #7b5aff;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #a087ff;
+    }
+    .small {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+    .token-address {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <img src="assets/spraynest-logo.png" width="100" />
+  <h1>SprayNest Token Creator</h1>
+  <div class="card">
+    <button onclick="connectWallet()">🔗 Connect Phantom</button>
+    <div id="wallet-address" class="small"></div>
+
+    <input type="text" id="token-name" placeholder="Token Name (e.g. SprayCoin)">
+    <input type="text" id="token-symbol" placeholder="Symbol (e.g. SPRY)">
+    <input type="number" id="token-supply" placeholder="Total Supply">
+
+    <button onclick="createToken()">🚀 Create Token</button>
+    <div class="token-address" id="token-result"></div>
+  </div>
+
+  <script>
+    let walletAddress = "";
+
+    async function connectWallet() {
+      try {
+        const resp = await window.solana.connect();
+        walletAddress = resp.publicKey.toString();
+        document.getElementById("wallet-address").innerText = "Connected: " + walletAddress;
+      } catch (err) {
+        alert("Phantom connection rejected");
+      }
+    }
+
+    async function createToken() {
+      const name = document.getElementById("token-name").value;
+      const symbol = document.getElementById("token-symbol").value;
+      const supply = parseInt(document.getElementById("token-supply").value);
+
+      if (!walletAddress) {
+        alert("Please connect Phantom wallet first");
+        return;
+      }
+
+      const body = {
+        name: name,
+        symbol: symbol,
+        supply: supply,
+        creator: walletAddress
+      };
+
+      const res = await fetch("https://spraynest-backend.onrender.com/create-token", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+
+      const data = await res.json();
+      if (data.token_address) {
+        document.getElementById("token-result").innerHTML = 
+          `✅ Token created: ${data.token_address} <br><button onclick="copyToken('${data.token_address}')">📋 Copy</button>`;
+      } else {
+        document.getElementById("token-result").innerText = "Error creating token.";
+      }
+    }
+
+    function copyToken(addr) {
+      navigator.clipboard.writeText(addr).then(() => alert("Copied!"));
+    }
+
+    window.onload = () => {
+      if (window.solana && window.solana.isPhantom) {
+        document.getElementById("wallet-address").innerText = "Phantom detected. Click Connect.";
+      } else {
+        document.getElementById("wallet-address").innerText = "Phantom Wallet not detected.";
+      }
+    }
+  </script>
+</body>
+</html>
