@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SprayNest - Token Creator</title>
+  <link rel="icon" href="assets/spraynest-logo.png" type="image/png">
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+    .card {
+      background: #1e1e1e;
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 500px;
+      margin: 0 auto;
+      box-shadow: 0 0 10px #00000088;
+    }
+    .input-group {
+      margin: 1rem 0;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: none;
+      background: #333;
+      color: white;
+    }
+    button {
+      background: #8c52ff;
+      color: white;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    button:hover {
+      background: #a273ff;
+    }
+    .footer {
+      margin-top: 3rem;
+      font-size: 0.8rem;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+  <img src="assets/spraynest-logo.png" alt="SprayNest" width="120">
+  <h1>SprayNest Token Creator</h1>
+  <div class="card">
+    <div class="input-group">
+      <input type="text" placeholder="Token Name" />
+    </div>
+    <div class="input-group">
+      <input type="text" placeholder="Symbol (e.g. SNST)" />
+    </div>
+    <div class="input-group">
+      <input type="number" placeholder="Total Supply" />
+    </div>
+    <div class="input-group">
+      <label><input type="checkbox" checked /> Revoke Mint Authority (Free)</label>
+    </div>
+    <div class="input-group">
+      <label><input type="checkbox" checked /> Revoke Freeze Authority (Free)</label>
+    </div>
+    <button onclick="alert('Connection with backend will go here')">Create Token</button>
+  </div>
+  <div class="footer">
+    &copy; 2025 SprayNest.com — All rights reserved.
+  </div>
+</body>
+</html>
