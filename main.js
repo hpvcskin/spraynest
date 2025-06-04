@@ -56,7 +56,7 @@ document.getElementById("tokenForm").addEventListener("submit", async function (
   }
 
   try {
-    const res = await fetch("https://spraynest-backend.onrender.com/create-token", {
+    const res = await fetch("http://173.249.40.169:10000/create-token", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -66,7 +66,7 @@ document.getElementById("tokenForm").addEventListener("submit", async function (
         symbol,
         supply,
         decimals,
-        creator: creatorAddress || window.connectedWallet
+        creator: creatorAddress
       })
     });
 
@@ -82,6 +82,8 @@ document.getElementById("tokenForm").addEventListener("submit", async function (
   }
 });
 
-function copyToken(token) {
-  navigator.clipboard.writeText(token);
+function copyToken(address) {
+  navigator.clipboard.writeText(address).then(() => {
+    alert("Token address copied!");
+  });
 }
