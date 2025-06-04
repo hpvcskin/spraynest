@@ -1,22 +1,21 @@
 body {
-  background: #0d0d0d;
+  background: #111;
   color: #fff;
-  font-family: 'Poppins', sans-serif;
+  font-family: sans-serif;
   text-align: center;
-  padding: 20px;
+  padding: 2em;
 }
-.logo {
-  width: 150px;
-  margin: 20px auto;
+input, button {
+  margin: 0.5em;
+  padding: 0.6em;
 }
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 400px;
-  margin: 0 auto;
+button {
+  background: #7a5cff;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
-.qr {
-  width: 120px;
-  margin-top: 10px;
+code {
+  background: #222;
+  padding: 0.2em 0.4em;
 }
